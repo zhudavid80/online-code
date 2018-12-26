@@ -21,7 +21,7 @@
         </div>
 
         <div class="action-box">
-          <a href="javascript:;" v-on:click="runEditor" class="btn">保存</a>
+          <a href="javascript:;" v-on:click="savePen" class="btn">保存</a>
           
           <a href="javascript:;" v-on:click="runEditor" class="btn">执行</a>
           

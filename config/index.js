@@ -7,8 +7,8 @@ module.exports = {
     index: path.resolve(__dirname, '../index.html'),
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    //Ϊ�˷�����vue-codepen����Ԥ�����õ�Ŀ¼
-    assetsPublicPath: '/',
+    //Ϊ�˷�����vue-codepen����Ԥ�����õ�Ŀ¼
+    assetsPublicPath: './',
     productionSourceMap: true,
     // Gzip off by default as many popular static hosts such as
     // Surge or Netlify already gzip all static assets for you.
@@ -31,7 +31,12 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
 
-
+      '/api/**.*': {
+        // 这里配置反向代理域名，将地址更换为接口服务器所在到域名地址即可
+        target: 'http://localhost:3000',
+        // target: 'http://tb-show.itgo88.com/index',
+        changeOrigin: true
+      }
     },
     // CSS Sourcemaps off by default because relative paths are "buggy"
     // with this option, according to the CSS-Loader README

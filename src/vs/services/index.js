@@ -8,15 +8,15 @@ import noty from 'noty';
  * @param {number} 数据id
  * @param {function} 回调函数
  */
-export function getModel(id, callback) {
+export function getModel(_id, callback) {
 
-    if (!id) {
+    if (!_id) {
 
-        console && console.log("This id is error.");
+        console && console.log("This _id is error.");
     }
 
     $.ajax({
-        url: "/static/data.json", //+ id,
+        url: "/api/components/"+ _id,
         type: "GET",
         dataType: "JSON",
         success: data => {
@@ -52,7 +52,7 @@ export function saveModel(datas, callback) {
     });
 
     $.ajax({
-        url: "/Vs/DoEdit/",
+        url: "/api/components",
         type: "POST",
         dataType: "JSON",
         data: {

@@ -5,7 +5,8 @@ import config from '../config';
 import * as Theme from '../vs/theme';
 import {
     setEditorValueAndRun,
-    clearEditorStore
+    clearEditorStore,
+    saveEditor
 } from '../vs/editor'
 import layout from '../components/layout.vue';
 import penSettingDialog from '../components/penSettingDialog.vue';
@@ -60,7 +61,7 @@ var data = {
     LabelItems: [],
     LabelItemsAll: [],
 
-    Html: "<h3>ttttttt</h3>",
+    Html: "",
     Css: "",
     Js: "",
 
@@ -101,8 +102,8 @@ var methods = {
 
     //保存笔记
     savePen: function () {
-
-
+        console.log("lksajflksaj")
+        saveEditor()
     },
 
     //新建笔记

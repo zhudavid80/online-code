@@ -7,9 +7,9 @@ export function getParam(name) {
     console.log(name)
     let reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
     let r = window.location.search.substr(1).match(reg);
-    console.log(decodeURI(r[2]))
     if (r) {
-        return decodeURI(r[2]);
+    console.log(decodeURI(r[2]))
+    return decodeURI(r[2]);
     }
     return null;
 };

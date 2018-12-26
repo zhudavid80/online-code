@@ -30,7 +30,14 @@ let defaults = {
     updateDelay: 2
 };
 
-
+let components={
+    "html":"",
+    "css":"",
+    "javascript":"",
+    "type":"",
+    "fileName":"",
+    "description":""
+}
 
 // load vsEditor
 function loadVsEditor(callback) {
@@ -75,18 +82,12 @@ function doRun(data, reload) {
         }
     }
 
-
-    console.log(data);
     datas.Html = data.html;
     datas.Css = data.css;
     datas.Js = data.javascript;
 
     runType = utils.GetDocType(datas.Html);
-
-
-
     if (runType) {
-
         headHtml = utils.getHeadHtml(datas.Html);
         bodyHtml = utils.getBodyHtml(datas.Html);
 
@@ -134,7 +135,7 @@ function doRun(data, reload) {
         Css: datas.Css,
         Js: datas.Js
     };
-
+    
     //绑定框架回调函数
     var $iframe = $(vs.runIframe);
     var HasRunIframeLoadFn = false;
@@ -144,7 +145,9 @@ function doRun(data, reload) {
         HasRunIframeLoadFn = true;
 
         Object.defineProperty(datas, "Css", {
+
             set: function (val) {
+                console.log(val)
                 eidtorDatas.Css = val;
                 $iframe.contents().find("#vscss").html(val);
                 return val;
@@ -154,6 +157,7 @@ function doRun(data, reload) {
         Object.defineProperty(datas, "Html", {
 
             set: function (val) {
+                console.log(val)
                 eidtorDatas.Html = val;
                 $iframe.contents().find("body").html(val);
                 return val;
@@ -163,6 +167,7 @@ function doRun(data, reload) {
         Object.defineProperty(datas, "Js", {
 
             set: function (val) {
+                console.log(val)
                 eidtorDatas.Js = val;
                 //$iframe[0].contentWindow.eval(val);
                 try {
@@ -360,7 +365,7 @@ export function bindEditor() {
     //获取参数
     var data,
         isAllEmpty = true,
-        id = utils.getParam("id"),
+        id = utils.getParam("_id"),
         $editors = getEditors(),
         editorData = {}
 
@@ -369,10 +374,9 @@ export function bindEditor() {
         initEditor($editors);
 
         //设置编辑器缓存
-        console.log(editorData)
         setEditorStore(editorData);
-
         //执行编辑器内容
+        setEditorValue(editorData)
         doRun(editorData);
     }
 
@@ -380,7 +384,6 @@ export function bindEditor() {
         //初始化编辑器
         initEditor($editors);
 
-        console.log("no- data - callback")
         //内容不为空 执行编辑器
         if (!isAllEmpty) {
             doRunByStore();
@@ -415,13 +418,15 @@ export function bindEditor() {
             editorData = {
                 css: m.Css,
                 html: m.Html,
-                javascript: m.Js
+                javascript: m.Js,
+                name:"lskjfklsajf"
             };
-
-
-            if (data.status == 0) {
-                return;
-            }
+            Object.assign(components,editorData)
+            console.log(editorData.name)
+            document.getElementById('title-ipt').value=editorData.name||''
+            // if (data.status == 0) {
+            //     return;
+            // }
 
             // if (categoryItems && categoryItems.length) {
 
@@ -458,3 +463,17 @@ export function bindEditor() {
     })
 
 };
+
+/**
+ * 保存编辑器数据
+ */
+export function saveEditor(){
+    console.log(getEditorStore())
+    console.log(components)
+    Object.assign(components,getEditorStore())
+    components.name=document.getElementById('title-ipt').value||'';
+    services.saveModel(components,function(res){
+        console.log(res)
+        console.log('sldfja')
+    })
+}
